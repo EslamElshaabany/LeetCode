@@ -6,16 +6,18 @@
 6
 7        for(int i =0; i< nums.length; i++) {
 8            if(nums[i] != 0) {
-9                nums[lastInsertIndex] = nums[i];
-10                lastInsertIndex++;
-11            }
-12        }
-13
-14        while(lastInsertIndex < nums.length) {
-15            nums[lastInsertIndex++] = 0;
-16        }
-17    }
-18}
-19
-20
+9                int tmp = nums[lastInsertIndex];
+10                nums[lastInsertIndex] = nums[i];
+11                nums[i] = tmp;
+12                lastInsertIndex++;
+13            }
+14        }
+15
+16        // while(lastInsertIndex < nums.length) {
+17        //     nums[lastInsertIndex++] = 0;
+18        // }
+19    }
+20}
 21
+22
+23
