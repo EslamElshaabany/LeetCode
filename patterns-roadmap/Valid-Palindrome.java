@@ -1,9 +1,9 @@
 1class Solution {
 2    public boolean isPalindrome(String s) {
 3
-4        Stack<Character> stack = new Stack<>();
+4        Deque<Character> stack = new ArrayDeque<>();
 5
-6        String ss = santize(s);
+6        String ss = sanitize(s);
 7
 8        for (char c : ss.toCharArray()) {
 9            stack.push(c);
@@ -16,7 +16,7 @@
 16        return true;
 17    }
 18
-19    static String santize(String s) {
+19    static String sanitize(String s) {
 20        StringBuilder sb = new StringBuilder();
 21        for(char c : s.toCharArray()) {
 22            if (Character.isLetterOrDigit(c)) {
