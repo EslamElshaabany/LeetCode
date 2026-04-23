@@ -11,30 +11,32 @@
 11class Solution {
 12    public ListNode reverseList(ListNode head) {
 13
-14        ListNode next = null, prev = null;
+14        return reverse(head, null);
 15
-16        while (head != null) {
-17            if (head.next == null) {
-18                head.next = prev;
-19                next = null;
-20                prev = head;
-21                break;
-22            }
-23            next = head.next;
-24            head.next = prev;
-25            prev = head;
-26            head = next;
-27        }
-28
-29        return head;
-30    }
-31}
-32
-33// at the start listnode is the head
-34// next = null, prev = null
-35// loop while listnode.next == null
-36    // next = listnode.next
-37    // listnode.next = prev
-38    // prev = listnode
-39    // listnode = next
-40
+16    }
+17
+18    private static ListNode reverse(ListNode current, ListNode prev) {
+19        if (current == null)  return prev; 
+20        ListNode next = current.next;
+21        current.next = prev;
+22        return reverse(next, current); 
+23    }
+24
+25}
+26
+27// at the start listnode is the head
+28// next = null, prev = null
+29// loop while listnode.next == null
+30    // next = listnode.next
+31    // listnode.next = prev
+32    // prev = listnode
+33    // listnode = next
+34
+35
+36// reverse(ListNode current, ListNode prev = null)
+37// base case current.next == null return current
+38// next = current.next;
+39// current.next = prev;
+40// prev = current;
+41// recursive case = return reverse(current.next) 
+42
