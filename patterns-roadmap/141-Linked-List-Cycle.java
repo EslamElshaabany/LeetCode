@@ -11,16 +11,20 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        Set<ListNode> listMap = new HashSet<>();
-        while(head != null) {
-            if (listMap.contains(head)) return true;
-            listMap.add(head);
-            head = head.next;
+        ListNode slow = head, fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
         }
+
         return false;
     }
 }
-
 
 // solution 1: 
 // change every visited node value to Integer.MAX_VALUE
@@ -32,3 +36,5 @@ public class Solution {
 // insert every node in the map 
 // if the node exist before return true 
 // return false
+
+// solution 3: fast-slow pointer
