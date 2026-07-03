@@ -10,18 +10,24 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 
-        if(list1 == null) return list2;
-        if(list2 == null) return list1;
-        ListNode head;
-        if(list1.val < list2.val) {
-            head = list1;
-            list1.next = mergeTwoLists(list1.next, list2);
-        } else {
-            head = list2;
-            list2.next = mergeTwoLists(list1, list2.next);
+        if (list1 != null) minHeap.offer(list1);
+        if (list2 != null) minHeap.offer(list2);
+
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+
+        while (!minHeap.isEmpty()) {
+            ListNode node = minHeap.poll();
+            tail.next = node;
+            tail = tail.next;
+            if (node.next != null) {
+                minHeap.offer(node.next);
+            }
         }
-        return head;
+
+        return dummy.next;
     }
 }
 
@@ -44,3 +50,11 @@ class Solution {
     // tmp = list2
     // list2.next =  merge(list1, list2.next)
 // return tmp
+
+
+// solution 2: using min heap
+// def dummy and tail = dummy
+// add list1 and list2 to heap
+// tail.next = heap.poll
+// tail= tail.next
+// offer tail.next
