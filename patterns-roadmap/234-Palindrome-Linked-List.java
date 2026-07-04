@@ -11,7 +11,6 @@
 class Solution {
     public boolean isPalindrome(ListNode head) {
 
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
         int size = 0, i = 0;
         ListNode tail = head;
         while (tail != null) {
@@ -20,32 +19,34 @@ class Solution {
         }
         boolean isOdd = size % 2 != 0 ? true : false;
 
-        if (size == 1)
-            return true;
+        if (size == 1)  return true;
 
-        while (i < size / 2) {
-            stack.push(head.val);
+        ListNode head2 = head;
+        while (i < size/2) {
             i++;
-            head = head.next;
+            head2 = head2.next;
         }
-
         if (isOdd) {
             i++;
-            head = head.next;
+            head2 = head2.next;
         };
 
-        while (head != null) {
+        ListNode tail2 = head2, prev = null, next = null;
+        while (tail2 != null) {
+            next = tail2.next;
+            tail2.next = prev;
+            prev = tail2;
+            tail2 = next;
+        }
+        head2 = prev;
 
-            if (!stack.isEmpty() && stack.peek() == head.val) {
-                stack.pop();
-            } else {
-                return false;
-            }
-            i++;
+        while (head != null && head2 != null) {
+            if(head.val != head2.val) return false;
             head = head.next;
+            head2 = head2.next;
         }
 
-        return stack.isEmpty();
+        return true;
     }
 }
 
@@ -58,3 +59,11 @@ class Solution {
 // move to the end if the stack.peek == head pop
 // else return false
 // return stack.isEmpty
+
+
+// solution 2: reverse the second half
+// [1,2,2,1]
+// [1,2,1,2]
+// skipping the middle in odd sizes
+// [1,2,3,4,3,2,1]
+// [1,2,3,4,1,2,3]
