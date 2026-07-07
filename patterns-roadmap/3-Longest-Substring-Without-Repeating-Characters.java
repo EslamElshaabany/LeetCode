@@ -8,17 +8,16 @@ class Solution {
             char rightChar = s.charAt(right);
             if (charMap.containsKey(rightChar)) {
                 maxLen = maxLen > currLen ? maxLen : currLen;
-                left = charMap.get(rightChar) + 1;
-                charMap=new HashMap<>();
-                for(int x = left; x <= right; x++) {
-                    charMap.put(s.charAt(x), x);
+                int newLeft = charMap.get(rightChar) + 1;
+                for(int x = left; x < newLeft; x++) {
+                    charMap.remove(s.charAt(x));
                 }
+                left = newLeft;
+                charMap.put(s.charAt(i), i);
                 currLen = right - left + 1;
-                System.out.println("from if, left: "+left+", right: "+right+", maxLen: "+maxLen+", currLen: "+ currLen);
             } else {
                 charMap.put(s.charAt(i), i);
                 currLen++;
-                System.out.println("from else, left: "+left+", right: "+right+", maxLen: "+maxLen+", currLen: "+ currLen);
             }
             right++;
         }
